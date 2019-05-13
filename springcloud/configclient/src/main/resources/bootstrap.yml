@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    config:
+      #配置文件所在分支
+      label: master
+      #配置服务器地址
+     # uri: http://localhost:8888/
+      #配置文件版本
+      profile: test
+      #配置文件名称
+      name: config
+      #将config-service注册微服务后，可以不用写uri,直接写服务名
+      discovery:
+        enabled: true
+        service-id: config-service
+  application:
+    name: config-client
+server:
+  port: 8881
+#注册至eureka服务
+eureka.client.service-url.defaultZone: http://localhost:8000/eureka/

@@ -1,0 +1,13 @@
+server:
+  port: 8763
+spring:
+  application:
+    name: consul-provider
+  cloud:
+    consul:
+      #consul 的ip 和 端口
+      host: localhost
+      port: 8500
+      discovery:
+        #设置微服务名
+        serviceName: consul-provider

@@ -1,0 +1,14 @@
+server.port: 8004
+spring.application.name: zuul-service
+eureka.client.service-url.defaultZone: http://localhost:8000/eureka/
+
+#配置zuul 路由 api-a 的路径转发给 consumer服务 ,b的转发给feign服务
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: eureka-consumer
+    api-b:
+      path: /api-b/**
+      serviceId: feign-service
+

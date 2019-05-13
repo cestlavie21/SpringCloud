@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="feignservice" />
+        <module name="configserver" />
+        <module name="eurekaserver" />
+        <module name="springcloud" />
+        <module name="zuulservice" />
+        <module name="consulprovider" />
+        <module name="consulconsumer" />
+        <module name="springcloud01" />
+        <module name="configclient" />
+        <module name="consumer" />
+        <module name="eurekaclient" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="configclient" options="-parameters" />
+      <module name="configserver" options="-parameters" />
+      <module name="consulconsumer" options="-parameters" />
+      <module name="consulprovider" options="-parameters" />
+      <module name="consumer" options="-parameters" />
+      <module name="eurekaclient" options="-parameters" />
+      <module name="eurekaserver" options="-parameters" />
+      <module name="feignservice" options="-parameters" />
+      <module name="zuulservice" options="-parameters" />
+    </option>
+  </component>
+</project>
