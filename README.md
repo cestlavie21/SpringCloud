@@ -96,3 +96,21 @@ public class HelloController {
     }
 }
 ```
+
+# 3.Hystrix断路器
+如果单个服务出现问题，调用这个服务就会出现线程阻塞，此时若有大量的请求涌入，Servlet容器的线程资源会被消耗完毕，导致服务瘫痪。
+使用断路器可直接返回一个固定的值
+
+1.fallback指定短路后的方法
+@FeignClient(value = "service-hi",fallback = SchedualServiceHiHystric.class)
+
+2.新建SchedualServiceHiHystric类实现FeginService接口,并实现方法
+```
+public class FeginServiceHystic  implements  FeginService{
+    @Override
+    public String sayHelloByFegin(String name) {
+        return "sorry"+name;
+    }
+}
+```
+
