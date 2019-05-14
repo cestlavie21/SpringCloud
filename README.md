@@ -36,10 +36,51 @@ springcloud test
  
  ![](https://github.com/cestlavie21/imageRepository/blob/master/images/springCloudImages/eureka-client1.png)
  
- 4.写一个Hello方法,方便测试
+ 4.写一个sayHello方法,方便测试
  
     @RequestMapping("/hello/{name}")
     public String sayHello(@PathVariable String name) {
 
         return "provider:" + name;
     }
+
+# 建立consumer服务去远程调用sayHello方法
+1.创建consumer服务,采用restTemplate的方式去远程调用.将restTemplate注入spring容器
+
+    public static void main(String[] args) {
+        SpringApplication.run(ConsumerApplication.class, args);
+    }
+    
+    @LoadBalanced
+    @Bean
+    RestTemplate restTemplate(){
+        return  new RestTemplate();
+    }
+  
+2.使用restTemplate去调用远程服务，会通过服务名eureka-provider到注册中心找到对应的ip和端口 
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    public  String sayHello(String name){
+        return  restTemplate.getForObject("http://eureka-provider/hello/"+name,String.class);
+    }
+ 
+# 2. 使用Feign的方式去远程调用
+1.创建feignservice服务并添加注解 @EnableFeignClients 和依赖
+        
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+2.创建FeignService, 使用@FeignClient来指明调用的服务，通过@RequestMapping()来指定调用的方法
+```
+@FeignClient(value = "eureka-provider",fallback = FeginServiceHystic.class)
+public interface FeginService {
+    @RequestMapping(value = "/hello/{name}",method = RequestMethod.GET)
+     String  sayHelloByFegin(@PathVariable String name);
+}
+```
+
+
