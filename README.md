@@ -82,5 +82,17 @@ public interface FeginService {
      String  sayHelloByFegin(@PathVariable String name);
 }
 ```
+3.创建controller，注入FeignService, 调用sayHelloByFegin方法
+```
+@RestController
+public class HelloController {
+    @Autowired
+    FeginService feginService;
 
-
+    @RequestMapping("/hello/{name}")
+    public String sayHello(@PathVariable String name ){
+        System.out.println("this is fegin");
+        return   feginService.sayHelloByFegin(name);
+    }
+}
+```
